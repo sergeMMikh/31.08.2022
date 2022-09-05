@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import AdvertisementStatusChoices, Advertisement
 
-# Register your models here.
+
+@admin.register(Advertisement)
+class ArticleAdmin(admin.ModelAdmin):
+    ...
