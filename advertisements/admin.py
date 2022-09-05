@@ -5,3 +5,4 @@ from .models import AdvertisementStatusChoices, Advertisement
 @admin.register(Advertisement)
 class ArticleAdmin(admin.ModelAdmin):
     ...
+
