@@ -12,7 +12,6 @@ class DataFilter(FilterSet):
 
     class Meta:
         model = Advertisement
-        # fields = ['creator', 'status', 'created_at', ]
         exclude = []
 
 class AdvertisementViewSet(ModelViewSet):
@@ -25,7 +24,6 @@ class AdvertisementViewSet(ModelViewSet):
     queryset = Advertisement.objects.all()
 
     filter_backends = [DjangoFilterBackend, ]
-    # filterset_fields = ['creator', 'status', ]
     filterset_class = DataFilter
     search_fields = ['creator', 'status', 'created_at', ]
 
