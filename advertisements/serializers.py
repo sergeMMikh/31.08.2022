@@ -41,21 +41,11 @@ class AdvertisementSerializer(serializers.ModelSerializer):
     def validate(self, data):
         """Метод для валидации. Вызывается при создании и обновлении."""
 
-        # TODO: добавьте требуемую валидацию
         class Meta:
             model = Advertisement
 
-        user = data['creator']
-        number_of_a = Advertisement.objects.filter(creator=data['creator'], status='OPEN').count()
-        print(f'number_of_a: {number_of_a}')
-
-        if number_of_a > 10:
+        if Advertisement.objects.filter(creator=self.context["request"].user,
+                                        status='OPEN').count() > 10:
             raise ValidationError('To many open advertisements.')
-
-
-
-
-
-
 
         return data
