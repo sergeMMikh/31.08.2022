@@ -19,7 +19,6 @@ class DataFilter(FilterSet):
 class IsOwnerOrReadOnly(permissions.BasePermission):
     """
     Object-level permission to only allow owners of an object to edit it.
-    Assumes the model instance has an `owner` attribute.
     """
 
     def has_object_permission(self, request, view, obj):
@@ -34,9 +33,6 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 
 class AdvertisementViewSet(ModelViewSet):
     """ViewSet для объявлений."""
-
-    # TODO: настройте ViewSet, укажите атрибуты для кверисета,
-    #   сериализаторов и фильтров
 
     serializer_class = AdvertisementSerializer
     queryset = Advertisement.objects.all()
