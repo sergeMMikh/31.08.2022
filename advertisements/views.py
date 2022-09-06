@@ -8,12 +8,12 @@ from .serializers import AdvertisementSerializer
 
 
 class DataFilter(FilterSet):
-    date = DateFromToRangeFilter()
+    created_at = DateFromToRangeFilter()
 
     class Meta:
         model = Advertisement
-        fields = ['created_at', ]
-
+        # fields = ['creator', 'status', 'created_at', ]
+        exclude = []
 
 class AdvertisementViewSet(ModelViewSet):
     """ViewSet для объявлений."""
@@ -21,14 +21,13 @@ class AdvertisementViewSet(ModelViewSet):
     # TODO: настройте ViewSet, укажите атрибуты для кверисета,
     #   сериализаторов и фильтров
 
-    queryset = Advertisement.objects.all()
     serializer_class = AdvertisementSerializer
+    queryset = Advertisement.objects.all()
 
-    filter_backends = [
-        DjangoFilterBackend,
-    ]
-    filterset_fields = ['creator', 'status', 'created_at']
+    filter_backends = [DjangoFilterBackend, ]
+    # filterset_fields = ['creator', 'status', ]
     filterset_class = DataFilter
+    search_fields = ['creator', 'status', 'created_at', ]
 
     def get_permissions(self):
         """Получение прав для действий."""
