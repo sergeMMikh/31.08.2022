@@ -38,11 +38,14 @@ class AdvertisementSerializer(serializers.ModelSerializer):
         validated_data["creator"] = self.context["request"].user
         return super().create(validated_data)
 
+    def update(self, instance, validated_data):
+        adv = super().update(instance, validated_data)
+        validated_data["creator"] = self.context["request"].user
+
+        return adv
+
     def validate(self, data):
         """Метод для валидации. Вызывается при создании и обновлении."""
-
-        class Meta:
-            model = Advertisement
 
         if Advertisement.objects.filter(creator=self.context["request"].user,
                                         status='OPEN').count() > 10:
