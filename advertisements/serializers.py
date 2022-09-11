@@ -1,3 +1,5 @@
+from pprint import pprint
+
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
@@ -42,10 +44,14 @@ class AdvertisementSerializer(serializers.ModelSerializer):
         adv = super().update(instance, validated_data)
         validated_data["creator"] = self.context["request"].user
 
+        print(f"self.context: {self.context}")
         return adv
 
     def validate(self, data):
         """Метод для валидации. Вызывается при создании и обновлении."""
+
+        if data.get('status') == 'CLOSED':
+            return data
 
         if Advertisement.objects.filter(creator=self.context["request"].user,
                                         status='OPEN').count() > 10:

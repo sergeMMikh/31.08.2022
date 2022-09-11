@@ -11,6 +11,3 @@ class AdvertisementFilter(filters.FilterSet):
     class Meta:
         model = Advertisement
         exclude = []
-
-    class Meta:
-        model = Advertisement
